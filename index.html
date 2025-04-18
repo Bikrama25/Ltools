@@ -4,55 +4,184 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ikigai Life Mastery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header>
-            <h1>Ikigai Life Mastery</h1>
-            <p id="date"></p>
-        </header>
-
-        <!-- Dashboard -->
-        <div class="dashboard">
-            <div class="progress-ring">
-                <h3>NoFap Streak</h3>
-                <div class="ring" id="nofap-ring">7</div>
+    <div class="app-container">
+        <!-- Navigation -->
+        <nav class="app-nav">
+            <div class="nav-brand">Ikigai Mastery</div>
+            <div class="nav-links">
+                <a href="#" class="active" data-section="dashboard"><i class="fas fa-home"></i></a>
+                <a href="#" data-section="checkin"><i class="fas fa-clipboard-check"></i></a>
+                <a href="#" data-section="ikigai"><i class="fas fa-bullseye"></i></a>
+                <a href="#" data-section="journal"><i class="fas fa-book"></i></a>
+                <a href="#" data-section="tools"><i class="fas fa-tools"></i></a>
             </div>
-            <div class="progress-ring">
-                <h3>Trading Wins</h3>
-                <div class="ring" id="trading-ring">3/5</div>
+            <div class="user-menu">
+                <img src="https://ui-avatars.com/api/?name=User" alt="User" class="user-avatar">
             </div>
-            <div class="progress-ring">
-                <h3>Glucose Avg</h3>
-                <div class="ring" id="glucose-ring">110</div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <div class="greeting">
+                    <h1>Welcome back, <span id="username">User</span></h1>
+                    <p id="current-date"></p>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card health">
+                        <h3>Health</h3>
+                        <div class="stat-value" id="glucose-stat">110 mg/dL</div>
+                        <div class="stat-trend up">↓ 5% from yesterday</div>
+                    </div>
+                    <div class="stat-card discipline">
+                        <h3>Discipline</h3>
+                        <div class="stat-value" id="streak-stat">7 days</div>
+                        <div class="stat-trend up">↑ 2 days</div>
+                    </div>
+                    <div class="stat-card trading">
+                        <h3>Trading</h3>
+                        <div class="stat-value" id="trading-stat">3/5 wins</div>
+                        <div class="stat-trend down">↓ 10% emotional trades</div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <button class="action-btn" id="quick-checkin">
+                        <i class="fas fa-clipboard-check"></i> Quick Check-In
+                    </button>
+                    <button class="action-btn" id="quick-journal">
+                        <i class="fas fa-pen"></i> Journal Entry
+                    </button>
+                </div>
+
+                <div class="habits-tracker">
+                    <h2>Today's Habits</h2>
+                    <div class="habit-list">
+                        <div class="habit-item">
+                            <label>
+                                <input type="checkbox" id="habit-meditation">
+                                <span>Morning Meditation (10 min)</span>
+                            </label>
+                        </div>
+                        <div class="habit-item">
+                            <label>
+                                <input type="checkbox" id="habit-exercise">
+                                <span>Exercise (30 min)</span>
+                            </label>
+                        </div>
+                        <div class="habit-item">
+                            <label>
+                                <input type="checkbox" id="habit-reading">
+                                <span>Read Trading Strategy (20 min)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Check-In Section -->
+            <section id="checkin" class="section">
+                <div class="checkin-header">
+                    <h2>Daily Check-In</h2>
+                    <div class="checkin-progress">
+                        <div class="step active" data-step="body">Body</div>
+                        <div class="step" data-step="senses">Senses</div>
+                        <div class="step" data-step="mind">Mind</div>
+                        <div class="step" data-step="intellect">Intellect</div>
+                        <div class="step" data-step="soul">Soul</div>
+                    </div>
+                </div>
+
+                <div class="checkin-body">
+                    <!-- Body Check-In -->
+                    <div id="checkin-body" class="checkin-step active">
+                        <h3>Body Awareness</h3>
+                        <div class="slider-container">
+                            <label>Energy Level</label>
+                            <input type="range" min="1" max="10" value="5" class="slider" id="energy-slider">
+                            <div class="slider-labels">
+                                <span>Exhausted</span>
+                                <span>Energized</span>
+                            </div>
+                        </div>
+
+                        <div class="slider-container">
+                            <label>Physical Comfort</label>
+                            <input type="range" min="1" max="10" value="5" class="slider" id="comfort-slider">
+                            <div class="slider-labels">
+                                <span>Pain</span>
+                                <span>Comfort</span>
+                            </div>
+                        </div>
+
+                        <div class="hydration-tracker">
+                            <label>Water Intake (glasses today)</label>
+                            <div class="water-buttons">
+                                <button class="water-btn" data-amount="1">1</button>
+                                <button class="water-btn" data-amount="2">2</button>
+                                <button class="water-btn" data-amount="3">3</button>
+                                <button class="water-btn" data-amount="4">4</button>
+                                <button class="water-btn" data-amount="5">5+</button>
+                            </div>
+                        </div>
+
+                        <button class="next-btn" data-next="senses">Next: Senses</button>
+                    </div>
+
+                    <!-- Senses Check-In -->
+                    <div id="checkin-senses" class="checkin-step">
+                        <!-- Similar structure for other check-in steps -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- IKIGAI Section -->
+            <section id="ikigai" class="section">
+                <!-- Expanded IKIGAI wheel implementation -->
+            </section>
+
+            <!-- Journal Section -->
+            <section id="journal" class="section">
+                <!-- Complete journaling interface -->
+            </section>
+
+            <!-- Tools Section -->
+            <section id="tools" class="section">
+                <!-- Urge management and other tools -->
+            </section>
+        </main>
+
+        <!-- Urge Redirection Modal -->
+        <div id="urge-modal" class="modal">
+            <div class="modal-content">
+                <h3>Urge Detected!</h3>
+                <p>You're experiencing a craving. Remember your Ikigai.</p>
+                
+                <div class="urge-options">
+                    <button class="urge-btn" id="breathe-btn">
+                        <i class="fas fa-wind"></i> 5-Minute Breathing
+                    </button>
+                    <button class="urge-btn" id="redirect-btn">
+                        <i class="fas fa-book"></i> Read Purpose Statement
+                    </button>
+                    <button class="urge-btn" id="exercise-btn">
+                        <i class="fas fa-running"></i> Quick Exercise
+                    </button>
+                </div>
+                
+                <div class="urge-timer">
+                    <div class="timer-circle">
+                        <span id="urge-timer">5:00</span>
+                    </div>
+                    <p>Time since urge began</p>
+                </div>
             </div>
-        </div>
-
-        <!-- Check-In Button -->
-        <button id="checkin-btn">Daily Check-In</button>
-
-        <!-- IKIGAI Wheel -->
-        <div class="ikigai-wheel">
-            <div class="quadrant" id="love">Love</div>
-            <div class="quadrant" id="good">Good At</div>
-            <div class="quadrant" id="need">World Needs</div>
-            <div class="quadrant" id="paid">Paid For</div>
-        </div>
-
-        <!-- Journal -->
-        <div class="journal">
-            <h2>Today's Journal</h2>
-            <textarea id="journal-entry" placeholder="What's on your mind?"></textarea>
-            <button id="save-journal">Save</button>
-        </div>
-
-        <!-- Urge Redirection (Hidden by Default) -->
-        <div id="urge-alert" class="hidden">
-            <h2>Urge Detected!</h2>
-            <p>Pause. Breathe. What's the Ikigai move?</p>
-            <button id="redirect-btn">Redirect to Meditation</button>
         </div>
     </div>
 
