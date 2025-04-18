@@ -13,11 +13,26 @@
         <nav class="app-nav">
             <div class="nav-brand">Ikigai Mastery</div>
             <div class="nav-links">
-                <a href="#" class="active" data-section="dashboard"><i class="fas fa-home"></i></a>
-                <a href="#" data-section="checkin"><i class="fas fa-clipboard-check"></i></a>
-                <a href="#" data-section="ikigai"><i class="fas fa-bullseye"></i></a>
-                <a href="#" data-section="journal"><i class="fas fa-book"></i></a>
-                <a href="#" data-section="tools"><i class="fas fa-tools"></i></a>
+                <a href="#" class="active" data-section="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" data-section="checkin">
+                    <i class="fas fa-clipboard-check"></i>
+                    <span>Check-In</span>
+                </a>
+                <a href="#" data-section="ikigai">
+                    <i class="fas fa-bullseye"></i>
+                    <span>IKIGAI</span>
+                </a>
+                <a href="#" data-section="journal">
+                    <i class="fas fa-book"></i>
+                    <span>Journal</span>
+                </a>
+                <a href="#" data-section="tools">
+                    <i class="fas fa-tools"></i>
+                    <span>Tools</span>
+                </a>
             </div>
             <div class="user-menu">
                 <img src="https://ui-avatars.com/api/?name=User" alt="User" class="user-avatar">
@@ -99,7 +114,6 @@
                 </div>
 
                 <div class="checkin-body">
-                    <!-- Body Check-In -->
                     <div id="checkin-body" class="checkin-step active">
                         <h3>Body Awareness</h3>
                         <div class="slider-container">
@@ -110,106 +124,110 @@
                                 <span>Energized</span>
                             </div>
                         </div>
-
-                        <div class="slider-container">
-                            <label>Physical Comfort</label>
-                            <input type="range" min="1" max="10" value="5" class="slider" id="comfort-slider">
-                            <div class="slider-labels">
-                                <span>Pain</span>
-                                <span>Comfort</span>
-                            </div>
-                        </div>
-
-                        <div class="hydration-tracker">
-                            <label>Water Intake (glasses today)</label>
-                            <div class="water-buttons">
-                                <button class="water-btn" data-amount="1">1</button>
-                                <button class="water-btn" data-amount="2">2</button>
-                                <button class="water-btn" data-amount="3">3</button>
-                                <button class="water-btn" data-amount="4">4</button>
-                                <button class="water-btn" data-amount="5">5+</button>
-                            </div>
-                        </div>
-
                         <button class="next-btn" data-next="senses">Next: Senses</button>
                     </div>
-
-                    <!-- Senses Check-In -->
+                    
                     <div id="checkin-senses" class="checkin-step">
-                        <!-- Similar structure for other check-in steps -->
+                        <h3>Senses Awareness</h3>
+                        <div class="senses-exercise">
+                            <p>Name three things you can:</p>
+                            <div class="sense-input">
+                                <input type="text" placeholder="Hear..." id="hear-input">
+                                <input type="text" placeholder="See..." id="see-input">
+                                <input type="text" placeholder="Feel..." id="feel-input">
+                            </div>
+                        </div>
+                        <button class="next-btn" data-next="mind">Next: Mind</button>
                     </div>
+                    
+                    <!-- Additional check-in steps would go here -->
                 </div>
             </section>
 
             <!-- IKIGAI Section -->
             <section id="ikigai" class="section">
-                <!-- Expanded IKIGAI wheel implementation -->
+                <div class="ikigai-container">
+                    <h2>Your IKIGAI</h2>
+                    <div class="ikigai-wheel">
+                        <div class="quadrant" id="love">
+                            <h3>What You Love</h3>
+                            <textarea placeholder="Your passions..."></textarea>
+                        </div>
+                        <div class="quadrant" id="good">
+                            <h3>What You're Good At</h3>
+                            <textarea placeholder="Your skills..."></textarea>
+                        </div>
+                        <div class="quadrant" id="need">
+                            <h3>What the World Needs</h3>
+                            <textarea placeholder="World's needs..."></textarea>
+                        </div>
+                        <div class="quadrant" id="paid">
+                            <h3>What You Can Be Paid For</h3>
+                            <textarea placeholder="Valuable skills..."></textarea>
+                        </div>
+                    </div>
+                    <button id="save-ikigai">Save IKIGAI</button>
+                </div>
             </section>
 
             <!-- Journal Section -->
             <section id="journal" class="section">
-                <!-- Complete journaling interface -->
+                <div class="journal-container">
+                    <h2>Daily Journal</h2>
+                    <div class="journal-tabs">
+                        <button class="tab-btn active" data-tab="daily">Daily</button>
+                        <button class="tab-btn" data-tab="trading">Trading</button>
+                        <button class="tab-btn" data-tab="health">Health</button>
+                    </div>
+                    <div class="journal-editor">
+                        <textarea id="journal-text" placeholder="Write your thoughts..."></textarea>
+                    </div>
+                    <div class="journal-actions">
+                        <button id="save-journal">Save Entry</button>
+                        <button id="clear-journal">Clear</button>
+                    </div>
+                    <div class="journal-entries">
+                        <h3>Recent Entries</h3>
+                        <div class="entries-list" id="entries-list">
+                            <!-- Entries will be added here dynamically -->
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <!-- Tools Section -->
             <section id="tools" class="section">
-                <!-- Urge management and other tools -->
+                <div class="tools-container">
+                    <h2>Urge Management Tools</h2>
+                    <div class="tool-card" id="breathing-tool">
+                        <h3><i class="fas fa-wind"></i> Breathing Exercise</h3>
+                        <div class="breathing-animation">
+                            <div class="circle"></div>
+                            <p>Breathe in... Breathe out...</p>
+                        </div>
+                        <button class="start-btn">Start 5-Minute Session</button>
+                    </div>
+                    
+                    <div class="tool-card" id="redirect-tool">
+                        <h3><i class="fas fa-exchange-alt"></i> Urge Redirect</h3>
+                        <div class="redirect-options">
+                            <button data-redirect="exercise">Quick Exercise</button>
+                            <button data-redirect="purpose">Read Purpose</button>
+                            <button data-redirect="meditation">Meditation</button>
+                        </div>
+                    </div>
+                    
+                    <div class="tool-card" id="trading-tool">
+                        <h3><i class="fas fa-chart-line"></i> Trading Discipline</h3>
+                        <div class="trading-rules">
+                            <textarea id="trading-rules" placeholder="Your trading rules..."></textarea>
+                            <button id="save-rules">Save Rules</button>
+                        </div>
+                    </div>
+                </div>
             </section>
         </main>
-
-        <!-- Urge Redirection Modal -->
-        <div id="urge-modal" class="modal">
-            <div class="modal-content">
-                <h3>Urge Detected!</h3>
-                <p>You're experiencing a craving. Remember your Ikigai.</p>
-                
-                <div class="urge-options">
-                    <button class="urge-btn" id="breathe-btn">
-                        <i class="fas fa-wind"></i> 5-Minute Breathing
-                    </button>
-                    <button class="urge-btn" id="redirect-btn">
-                        <i class="fas fa-book"></i> Read Purpose Statement
-                    </button>
-                    <button class="urge-btn" id="exercise-btn">
-                        <i class="fas fa-running"></i> Quick Exercise
-                    </button>
-                </div>
-                
-                <div class="urge-timer">
-                    <div class="timer-circle">
-                        <span id="urge-timer">5:00</span>
-                    </div>
-                    <p>Time since urge began</p>
-                </div>
-            </div>
-        </div>
     </div>
-
-
-<!-- Update your nav links like this: -->
-<div class="nav-links">
-    <a href="#" class="active" data-section="dashboard">
-        <i class="fas fa-home"></i>
-        <span>Dashboard</span>
-    </a>
-    <a href="#" data-section="checkin">
-        <i class="fas fa-clipboard-check"></i>
-        <span>Check-In</span>
-    </a>
-    <a href="#" data-section="ikigai">
-        <i class="fas fa-bullseye"></i>
-        <span>IKIGAI</span>
-    </a>
-    <a href="#" data-section="journal">
-        <i class="fas fa-book"></i>
-        <span>Journal</span>
-    </a>
-    <a href="#" data-section="tools">
-        <i class="fas fa-tools"></i>
-        <span>Tools</span>
-    </a>
-</div>
-    
 
     <script src="script.js"></script>
 </body>
