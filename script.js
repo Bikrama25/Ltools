@@ -1,266 +1,190 @@
-// DOM Elements
-const sections = {
-    dashboard: document.getElementById('dashboard'),
-    checkin: document.getElementById('checkin'),
-    ikigai: document.getElementById('ikigai'),
-    journal: document.getElementById('journal'),
-    tools: document.getElementById('tools')
-};
-
-const navLinks = document.querySelectorAll('.nav-links a');
-const currentDateEl = document.getElementById('current-date');
-const urgeModal = document.getElementById('urge-modal');
-const checkinSteps = document.querySelectorAll('.checkin-step');
-const nextButtons = document.querySelectorAll('.next-btn');
-const progressSteps = document.querySelectorAll('.step');
-
-// App State
-const state = {
-    currentUser: 'User',
-    streaks: {
-        nofap: 7,
-        trading: 3,
-        health: 0
-    },
-    checkinData: {
-        body: {},
-        senses: {},
-        mind: {},
-        intellect: {},
-        soul: {}
-    },
-    lastUrgeTime: null,
-    habits: {
-        meditation: false,
-        exercise: false,
-        reading: false
-    }
-};
-
-// Initialize App
-function initApp() {
+document.addEventListener('DOMContentLoaded', function() {
     // Set current date
     const now = new Date();
-    currentDateEl.textContent = now.toLocaleDateString('en-US', { 
+    document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', { 
         weekday: 'long', 
         month: 'long', 
         day: 'numeric' 
     });
-    
-    // Load user data from localStorage
-    loadUserData();
-    
-    // Set up event listeners
-    setupNavigation();
-    setupCheckinFlow();
-    setupHabitTracking();
-    setupUrgeManagement();
-    
-    // Simulate urge after 30 seconds (for demo)
-    setTimeout(() => {
-        showUrgeModal();
-    }, 30000);
-}
 
-// Navigation
-function setupNavigation() {
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const sectionId = link.dataset.section;
-            
-            // Update active nav link
-            navLinks.forEach(navLink => navLink.classList.remove('active'));
-            link.classList.add('active');
-            
-            // Show selected section
-            Object.values(sections).forEach(section => {
-                section.classList.remove('active');
-            });
-            sections[sectionId].classList.add('active');
-        });
-    });
-}
-
-// Check-In Flow
-function setupCheckinFlow() {
-    nextButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const currentStep = button.closest('.checkin-step');
-            const nextStepId = button.dataset.next;
-            
-            // Save data from current step
-            saveCheckinData(currentStep.id.replace('checkin-', ''));
-            
-            // Update progress steps
-            updateProgressSteps(nextStepId);
-            
-            // Hide current step, show next
-            currentStep.classList.remove('active');
-            document.getElementById(`checkin-${nextStepId}`).classList.add('active');
-        });
-    });
-}
-
-function saveCheckinData(step) {
-    // Save slider values and other inputs
-    if (step === 'body') {
-        state.checkinData.body = {
-            energy: document.getElementById('energy-slider').value,
-            comfort: document.getElementById('comfort-slider').value
-        };
-    }
-    // Add other steps here
-}
-
-function updateProgressSteps(nextStep) {
-    const stepOrder = ['body', 'senses', 'mind', 'intellect', 'soul'];
-    const nextIndex = stepOrder.indexOf(nextStep);
-    
-    progressSteps.forEach((step, index) => {
-        if (index <= nextIndex) {
-            step.classList.add('active');
-        } else {
-            step.classList.remove('active');
-        }
-    });
-}
-
-// Habit Tracking
-function setupHabitTracking() {
-    const habitCheckboxes = document.querySelectorAll('.habit-item input');
-    habitCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', (e) => {
-            const habitId = e.target.id.replace('habit-', '');
-            state.habits[habitId] = e.target.checked;
-            saveUserData();
-        });
-    });
-}
-
-// Urge Management
-function setupUrgeManagement() {
-    document.getElementById('breathe-btn').addEventListener('click', startBreathingExercise);
-    document.getElementById('redirect-btn').addEventListener('click', redirectToPurpose);
-    document.getElementById('exercise-btn').addEventListener('click', suggestExercise);
-}
-
-function showUrgeModal() {
-    state.lastUrgeTime = new Date();
-    urgeModal.classList.add('active');
-    startUrgeTimer();
-}
-
-function hideUrgeModal() {
-    urgeModal.classList.remove('active');
-}
-
-function startUrgeTimer() {
-    const timerEl = document.getElementById('urge-timer');
-    let seconds = 0;
-    
-    const timer = setInterval(() => {
-        seconds++;
-        const mins = Math.floor(seconds / 60);
-        const secs = seconds % 60;
-        timerEl.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-        
-        if (!urgeModal.classList.contains('active')) {
-            clearInterval(timer);
-        }
-    }, 1000);
-}
-
-function startBreathingExercise() {
-    hideUrgeModal();
-    alert('Starting 5-minute breathing exercise...');
-    // In a full app, this would open a guided breathing exercise
-}
-
-function redirectToPurpose() {
-    hideUrgeModal();
-    // Show user's IKIGAI purpose statement
-    sections.ikigai.classList.add('active');
-    sections.dashboard.classList.remove('active');
-    document.querySelector('[data-section="ikigai"]').classList.add('active');
-    document.querySelector('[data-section="dashboard"]').classList.remove('active');
-}
-
-function suggestExercise() {
-    hideUrgeModal();
-    const exercises = [
-        "Do 20 push-ups",
-        "Take a 5-minute walk",
-        "Stretch for 3 minutes",
-        "Do 30 jumping jacks"
-    ];
-    const randomExercise = exercises[Math.floor(Math.random() * exercises.length)];
-    alert(`Suggested exercise: ${randomExercise}`);
-}
-
-// Data Management
-function loadUserData() {
-    const savedData = localStorage.getItem('ikigaiAppData');
-    if (savedData) {
-        Object.assign(state, JSON.parse(savedData));
-    }
-    
-    // Update UI with loaded data
-    document.getElementById('username').textContent = state.currentUser;
-    document.getElementById('nofap-stat').textContent = `${state.streaks.nofap} days`;
-    document.getElementById('trading-stat').textContent = `${state.streaks.trading}/5 wins`;
-    
-    // Set habit checkboxes
-    Object.keys(state.habits).forEach(habitId => {
-        const checkbox = document.getElementById(`habit-${habitId}`);
-        if (checkbox) checkbox.checked = state.habits[habitId];
-    });
-}
-
-function saveUserData() {
-    localStorage.setItem('ikigaiAppData', JSON.stringify(state));
-}
-
-// ===== NAVIGATION SYSTEM ===== //
-function setupNavigation() {
+    // Navigation System
     const navLinks = document.querySelectorAll('.nav-links a');
+    const sections = document.querySelectorAll('.section');
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Remove active class from all links
+            // Remove active class from all links and sections
             navLinks.forEach(item => item.classList.remove('active'));
+            sections.forEach(section => section.classList.remove('active'));
             
             // Add active class to clicked link
             this.classList.add('active');
             
-            // Hide all sections
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Show target section
-            const targetSection = this.getAttribute('data-section');
-            document.getElementById(targetSection).classList.add('active');
-            
-            // Smooth scroll to top
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            // Show corresponding section
+            const targetId = this.getAttribute('data-section');
+            document.getElementById(targetId).classList.add('active');
         });
     });
-}
 
-// Initialize navigation when DOM loads
-document.addEventListener('DOMContentLoaded', function() {
-    setupNavigation();
+    // Dashboard Interactions
+    const quickCheckin = document.getElementById('quick-checkin');
+    const quickJournal = document.getElementById('quick-journal');
     
-    // Set dashboard as default active section
-    document.querySelector('[data-section="dashboard"]').classList.add('active');
-    document.getElementById('dashboard').classList.add('active');
-});
+    quickCheckin.addEventListener('click', function() {
+        // Switch to check-in section
+        navLinks.forEach(item => item.classList.remove('active'));
+        sections.forEach(section => section.classList.remove('active'));
+        
+        document.querySelector('[data-section="checkin"]').classList.add('active');
+        document.getElementById('checkin').classList.add('active');
+    });
+    
+    quickJournal.addEventListener('click', function() {
+        // Switch to journal section
+        navLinks.forEach(item => item.classList.remove('active'));
+        sections.forEach(section => section.classList.remove('active'));
+        
+        document.querySelector('[data-section="journal"]').classList.add('active');
+        document.getElementById('journal').classList.add('active');
+    });
 
-// Initialize the app when DOM is loaded
-document.addEventListener('DOMContentLoaded', initApp);
+    // Habit Tracker
+    const habitCheckboxes = document.querySelectorAll('.habit-item input');
+    habitCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            // Save habit state to localStorage
+            const habits = {
+                meditation: document.getElementById('habit-meditation').checked,
+                exercise: document.getElementById('habit-exercise').checked,
+                reading: document.getElementById('habit-reading').checked
+            };
+            localStorage.setItem('habits', JSON.stringify(habits));
+        });
+    });
+
+    // Load saved habits
+    const savedHabits = localStorage.getItem('habits');
+    if (savedHabits) {
+        const habits = JSON.parse(savedHabits);
+        document.getElementById('habit-meditation').checked = habits.meditation;
+        document.getElementById('habit-exercise').checked = habits.exercise;
+        document.getElementById('habit-reading').checked = habits.reading;
+    }
+
+    // IKIGAI Section
+    const ikigaiTextareas = document.querySelectorAll('.quadrant textarea');
+    const saveIkigaiBtn = document.getElementById('save-ikigai');
+    
+    // Load saved IKIGAI
+    const savedIkigai = localStorage.getItem('ikigai');
+    if (savedIkigai) {
+        const ikigaiData = JSON.parse(savedIkigai);
+        ikigaiTextareas.forEach(textarea => {
+            const quadrantId = textarea.closest('.quadrant').id;
+            textarea.value = ikigaiData[quadrantId] || '';
+        });
+    }
+    
+    saveIkigaiBtn.addEventListener('click', function() {
+        const ikigaiData = {
+            love: document.querySelector('#love textarea').value,
+            good: document.querySelector('#good textarea').value,
+            need: document.querySelector('#need textarea').value,
+            paid: document.querySelector('#paid textarea').value
+        };
+        localStorage.setItem('ikigai', JSON.stringify(ikigaiData));
+        alert('IKIGAI saved successfully!');
+    });
+
+    // Journal Section
+    const journalTabs = document.querySelectorAll('.journal-tabs .tab-btn');
+    const journalText = document.getElementById('journal-text');
+    const saveJournalBtn = document.getElementById('save-journal');
+    const entriesList = document.getElementById('entries-list');
+    
+    journalTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            journalTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            // In a full app, you would load different journal types here
+        });
+    });
+    
+    // Load saved journal entries
+    const savedEntries = localStorage.getItem('journalEntries');
+    if (savedEntries) {
+        const entries = JSON.parse(savedEntries);
+        entries.forEach(entry => {
+            const entryElement = document.createElement('div');
+            entryElement.className = 'entry-item';
+            entryElement.innerHTML = `
+                <small>${new Date(entry.date).toLocaleString()}</small>
+                <p>${entry.text.substring(0, 100)}...</p>
+            `;
+            entriesList.appendChild(entryElement);
+        });
+    }
+    
+    saveJournalBtn.addEventListener('click', function() {
+        const entryText = journalText.value.trim();
+        if (!entryText) return;
+        
+        const entry = {
+            date: new Date().toISOString(),
+            text: entryText,
+            type: document.querySelector('.journal-tabs .active').getAttribute('data-tab')
+        };
+        
+        // Get existing entries or create new array
+        const existingEntries = JSON.parse(localStorage.getItem('journalEntries') || []);
+        existingEntries.unshift(entry); // Add new entry at beginning
+        
+        // Save to localStorage
+        localStorage.setItem('journalEntries', JSON.stringify(existingEntries));
+        
+        // Add to UI
+        const entryElement = document.createElement('div');
+        entryElement.className = 'entry-item';
+        entryElement.innerHTML = `
+            <small>${new Date(entry.date).toLocaleString()}</small>
+            <p>${entry.text.substring(0, 100)}...</p>
+        `;
+        entriesList.prepend(entryElement);
+        
+        // Clear textarea
+        journalText.value = '';
+        alert('Journal entry saved!');
+    });
+
+    // Tools Section
+    const breathingTool = document.getElementById('breathing-tool');
+    const redirectTool = document.getElementById('redirect-tool');
+    
+    breathingTool.querySelector('.start-btn').addEventListener('click', function() {
+        alert('Starting 5-minute breathing exercise...');
+        // In a full app, this would start a timer with animations
+    });
+    
+    redirectTool.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const action = this.getAttribute('data-redirect');
+            switch(action) {
+                case 'exercise':
+                    alert('Redirecting to quick exercise...');
+                    break;
+                case 'purpose':
+                    // Switch to IKIGAI section
+                    navLinks.forEach(item => item.classList.remove('active'));
+                    sections.forEach(section => section.classList.remove('active'));
+                    document.querySelector('[data-section="ikigai"]').classList.add('active');
+                    document.getElementById('ikigai').classList.add('active');
+                    break;
+                case 'meditation':
+                    alert('Starting meditation...');
+                    break;
+            }
+        });
+    });
+});
