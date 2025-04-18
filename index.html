@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ikigai Life Mastery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>Ikigai Life Mastery</h1>
+            <p id="date"></p>
+        </header>
+
+        <!-- Dashboard -->
+        <div class="dashboard">
+            <div class="progress-ring">
+                <h3>NoFap Streak</h3>
+                <div class="ring" id="nofap-ring">7</div>
+            </div>
+            <div class="progress-ring">
+                <h3>Trading Wins</h3>
+                <div class="ring" id="trading-ring">3/5</div>
+            </div>
+            <div class="progress-ring">
+                <h3>Glucose Avg</h3>
+                <div class="ring" id="glucose-ring">110</div>
+            </div>
+        </div>
+
+        <!-- Check-In Button -->
+        <button id="checkin-btn">Daily Check-In</button>
+
+        <!-- IKIGAI Wheel -->
+        <div class="ikigai-wheel">
+            <div class="quadrant" id="love">Love</div>
+            <div class="quadrant" id="good">Good At</div>
+            <div class="quadrant" id="need">World Needs</div>
+            <div class="quadrant" id="paid">Paid For</div>
+        </div>
+
+        <!-- Journal -->
+        <div class="journal">
+            <h2>Today's Journal</h2>
+            <textarea id="journal-entry" placeholder="What's on your mind?"></textarea>
+            <button id="save-journal">Save</button>
+        </div>
+
+        <!-- Urge Redirection (Hidden by Default) -->
+        <div id="urge-alert" class="hidden">
+            <h2>Urge Detected!</h2>
+            <p>Pause. Breathe. What's the Ikigai move?</p>
+            <button id="redirect-btn">Redirect to Meditation</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
