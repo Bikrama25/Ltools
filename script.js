@@ -221,5 +221,46 @@ function saveUserData() {
     localStorage.setItem('ikigaiAppData', JSON.stringify(state));
 }
 
+// ===== NAVIGATION SYSTEM ===== //
+function setupNavigation() {
+    const navLinks = document.querySelectorAll('.nav-links a');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Remove active class from all links
+            navLinks.forEach(item => item.classList.remove('active'));
+            
+            // Add active class to clicked link
+            this.classList.add('active');
+            
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show target section
+            const targetSection = this.getAttribute('data-section');
+            document.getElementById(targetSection).classList.add('active');
+            
+            // Smooth scroll to top
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    });
+}
+
+// Initialize navigation when DOM loads
+document.addEventListener('DOMContentLoaded', function() {
+    setupNavigation();
+    
+    // Set dashboard as default active section
+    document.querySelector('[data-section="dashboard"]').classList.add('active');
+    document.getElementById('dashboard').classList.add('active');
+});
+
 // Initialize the app when DOM is loaded
 document.addEventListener('DOMContentLoaded', initApp);
