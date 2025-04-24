@@ -3,232 +3,311 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ikigai Life Mastery</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <title>MindGarden - Cultivate Your Growth</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --secondary: #8BC34A;
+            --dark: #2E7D32;
+            --light: #C8E6C9;
+            --premium: #FFC107;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+        }
+        
+        .garden-container {
+            background: linear-gradient(135deg, #E1F5FE 0%, #B3E5FC 100%);
+            border-radius: 20px;
+            min-height: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .plant {
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+        
+        .premium-badge {
+            background-color: var(--premium);
+            color: #000;
+            font-weight: bold;
+        }
+        
+        .locked-feature {
+            filter: blur(3px);
+            position: relative;
+        }
+        
+        .locked-feature::after {
+            content: "🔒 Premium Feature";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+        }
+    </style>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Navigation -->
-        <nav class="app-nav">
-            <div class="nav-brand">Ikigai Mastery</div>
-            <div class="nav-links">
-                <a href="#" class="active" data-section="dashboard">
-                    <i class="fas fa-home"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="#" data-section="checkin">
-                    <i class="fas fa-clipboard-check"></i>
-                    <span>Check-In</span>
-                </a>
-                <a href="#" data-section="ikigai">
-                    <i class="fas fa-bullseye"></i>
-                    <span>IKIGAI</span>
-                </a>
-                <a href="#" data-section="journal">
-                    <i class="fas fa-book"></i>
-                    <span>Journal</span>
-                </a>
-                <a href="#" data-section="tools">
-                    <i class="fas fa-tools"></i>
-                    <span>Tools</span>
-                </a>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand" href="#">🌱 MindGarden</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#">My Garden</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Activities</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Community</a></li>
+                </ul>
+                <div class="d-flex">
+                    <button id="upgradeBtn" class="btn btn-warning me-2">Upgrade</button>
+                    <button class="btn btn-outline-light">Profile</button>
+                </div>
             </div>
-            <div class="user-menu">
-                <img src="https://ui-avatars.com/api/?name=User" alt="User" class="user-avatar">
-            </div>
-        </nav>
+        </div>
+    </nav>
 
-        <!-- Main Content -->
-        <main class="app-main">
-            <!-- Dashboard Section -->
-            <section id="dashboard" class="section active">
-                <div class="greeting">
-                    <h1>Welcome back, <span id="username">User</span></h1>
-                    <p id="current-date"></p>
+    <!-- Main Content -->
+    <div class="container my-4">
+        <div class="row">
+            <!-- Garden View -->
+            <div class="col-md-8">
+                <div class="garden-container p-4 mb-4">
+                    <h4>My Growth Garden <span class="badge bg-secondary">Free</span></h4>
+                    <div class="d-flex justify-content-center align-items-center" style="height: 400px;">
+                        <div class="text-center">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3029/3029021.png" width="100" class="plant mb-2">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3029/3029026.png" width="80" class="plant mb-2">
+                            <p>Your garden grows as you complete activities!</p>
+                            <div class="locked-feature">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3029/3029014.png" width="120">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Activity Panel -->
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header bg-success text-white">
+                        Today's Growth
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <h6>Mindfulness</h6>
+                            <div class="progress mb-2">
+                                <div class="progress-bar bg-info" style="width: 30%">1/3 Complete</div>
+                            </div>
+                            <button class="btn btn-sm btn-outline-success">Start Meditation</button>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <h6>Productivity <span class="badge premium-badge">Premium</span></h6>
+                            <div class="locked-feature">
+                                <div class="progress mb-2">
+                                    <div class="progress-bar bg-warning" style="width: 0%">Locked</div>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-outline-secondary" disabled>Focus Session</button>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <h6>Learning <span class="badge premium-badge">Premium</span></h6>
+                            <div class="locked-feature">
+                                <div class="progress mb-2">
+                                    <div class="progress-bar bg-primary" style="width: 0%">Locked</div>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-outline-secondary" disabled>Read Article</button>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="stats-grid">
-                    <div class="stat-card health">
-                        <h3>Health</h3>
-                        <div class="stat-value" id="glucose-stat">110 mg/dL</div>
-                        <div class="stat-trend up">↓ 5% from yesterday</div>
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        Upgrade Your Garden
                     </div>
-                    <div class="stat-card discipline">
-                        <h3>Discipline</h3>
-                        <div class="stat-value" id="streak-stat">7 days</div>
-                        <div class="stat-trend up">↑ 2 days</div>
-                    </div>
-                    <div class="stat-card trading">
-                        <h3>Trading</h3>
-                        <div class="stat-value" id="trading-stat">3/5 wins</div>
-                        <div class="stat-trend down">↓ 10% emotional trades</div>
-                    </div>
-                </div>
-
-                <div class="quick-actions">
-                    <button class="action-btn" id="quick-checkin">
-                        <i class="fas fa-clipboard-check"></i> Quick Check-In
-                    </button>
-                    <button class="action-btn" id="quick-journal">
-                        <i class="fas fa-pen"></i> Journal Entry
-                    </button>
-                </div>
-
-                <div class="habits-tracker">
-                    <h2>Today's Habits</h2>
-                    <div class="habit-list">
-                        <div class="habit-item">
-                            <label>
-                                <input type="checkbox" id="habit-meditation">
-                                <span>Morning Meditation (10 min)</span>
-                            </label>
-                        </div>
-                        <div class="habit-item">
-                            <label>
-                                <input type="checkbox" id="habit-exercise">
-                                <span>Exercise (30 min)</span>
-                            </label>
-                        </div>
-                        <div class="habit-item">
-                            <label>
-                                <input type="checkbox" id="habit-reading">
-                                <span>Read Trading Strategy (20 min)</span>
-                            </label>
-                        </div>
+                    <div class="card-body">
+                        <h5>Unlock Full Potential</h5>
+                        <ul class="list-group list-group-flush mb-3">
+                            <li class="list-group-item">🌼 100+ Guided Meditations</li>
+                            <li class="list-group-item">📊 Advanced Growth Analytics</li>
+                            <li class="list-group-item">🎨 Custom Garden Designs</li>
+                            <li class="list-group-item">🧠 AI-Powered Coaching</li>
+                        </ul>
+                        <button class="btn btn-warning w-100" data-bs-toggle="modal" data-bs-target="#subscriptionModal">
+                            Upgrade to Premium
+                        </button>
                     </div>
                 </div>
-            </section>
-
-            <!-- Check-In Section -->
-            <section id="checkin" class="section">
-                <div class="checkin-header">
-                    <h2>Daily Check-In</h2>
-                    <div class="checkin-progress">
-                        <div class="step active" data-step="body">Body</div>
-                        <div class="step" data-step="senses">Senses</div>
-                        <div class="step" data-step="mind">Mind</div>
-                        <div class="step" data-step="intellect">Intellect</div>
-                        <div class="step" data-step="soul">Soul</div>
-                    </div>
-                </div>
-
-                <div class="checkin-body">
-                    <div id="checkin-body" class="checkin-step active">
-                        <h3>Body Awareness</h3>
-                        <div class="slider-container">
-                            <label>Energy Level</label>
-                            <input type="range" min="1" max="10" value="5" class="slider" id="energy-slider">
-                            <div class="slider-labels">
-                                <span>Exhausted</span>
-                                <span>Energized</span>
-                            </div>
-                        </div>
-                        <button class="next-btn" data-next="senses">Next: Senses</button>
-                    </div>
-                    
-                    <div id="checkin-senses" class="checkin-step">
-                        <h3>Senses Awareness</h3>
-                        <div class="senses-exercise">
-                            <p>Name three things you can:</p>
-                            <div class="sense-input">
-                                <input type="text" placeholder="Hear..." id="hear-input">
-                                <input type="text" placeholder="See..." id="see-input">
-                                <input type="text" placeholder="Feel..." id="feel-input">
-                            </div>
-                        </div>
-                        <button class="next-btn" data-next="mind">Next: Mind</button>
-                    </div>
-                    
-                    <!-- Additional check-in steps would go here -->
-                </div>
-            </section>
-
-            <!-- IKIGAI Section -->
-            <section id="ikigai" class="section">
-                <div class="ikigai-container">
-                    <h2>Your IKIGAI</h2>
-                    <div class="ikigai-wheel">
-                        <div class="quadrant" id="love">
-                            <h3>What You Love</h3>
-                            <textarea placeholder="Your passions..."></textarea>
-                        </div>
-                        <div class="quadrant" id="good">
-                            <h3>What You're Good At</h3>
-                            <textarea placeholder="Your skills..."></textarea>
-                        </div>
-                        <div class="quadrant" id="need">
-                            <h3>What the World Needs</h3>
-                            <textarea placeholder="World's needs..."></textarea>
-                        </div>
-                        <div class="quadrant" id="paid">
-                            <h3>What You Can Be Paid For</h3>
-                            <textarea placeholder="Valuable skills..."></textarea>
-                        </div>
-                    </div>
-                    <button id="save-ikigai">Save IKIGAI</button>
-                </div>
-            </section>
-
-            <!-- Journal Section -->
-            <section id="journal" class="section">
-                <div class="journal-container">
-                    <h2>Daily Journal</h2>
-                    <div class="journal-tabs">
-                        <button class="tab-btn active" data-tab="daily">Daily</button>
-                        <button class="tab-btn" data-tab="trading">Trading</button>
-                        <button class="tab-btn" data-tab="health">Health</button>
-                    </div>
-                    <div class="journal-editor">
-                        <textarea id="journal-text" placeholder="Write your thoughts..."></textarea>
-                    </div>
-                    <div class="journal-actions">
-                        <button id="save-journal">Save Entry</button>
-                        <button id="clear-journal">Clear</button>
-                    </div>
-                    <div class="journal-entries">
-                        <h3>Recent Entries</h3>
-                        <div class="entries-list" id="entries-list">
-                            <!-- Entries will be added here dynamically -->
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Tools Section -->
-            <section id="tools" class="section">
-                <div class="tools-container">
-                    <h2>Urge Management Tools</h2>
-                    <div class="tool-card" id="breathing-tool">
-                        <h3><i class="fas fa-wind"></i> Breathing Exercise</h3>
-                        <div class="breathing-animation">
-                            <div class="circle"></div>
-                            <p>Breathe in... Breathe out...</p>
-                        </div>
-                        <button class="start-btn">Start 5-Minute Session</button>
-                    </div>
-                    
-                    <div class="tool-card" id="redirect-tool">
-                        <h3><i class="fas fa-exchange-alt"></i> Urge Redirect</h3>
-                        <div class="redirect-options">
-                            <button data-redirect="exercise">Quick Exercise</button>
-                            <button data-redirect="purpose">Read Purpose</button>
-                            <button data-redirect="meditation">Meditation</button>
-                        </div>
-                    </div>
-                    
-                    <div class="tool-card" id="trading-tool">
-                        <h3><i class="fas fa-chart-line"></i> Trading Discipline</h3>
-                        <div class="trading-rules">
-                            <textarea id="trading-rules" placeholder="Your trading rules..."></textarea>
-                            <button id="save-rules">Save Rules</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
+            </div>
+        </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Subscription Modal -->
+    <div class="modal fade" id="subscriptionModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Choose Your Plan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <!-- Premium Plan -->
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100">
+                                <div class="card-header bg-warning">
+                                    <h5>Premium</h5>
+                                    <h3>$4.99<span class="fs-6">/month</span></h3>
+                                    <p class="text-muted">or $49.99/year</p>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-unstyled">
+                                        <li>✔ Full Meditation Library</li>
+                                        <li>✔ Advanced Analytics</li>
+                                        <li>✔ Custom Garden Designs</li>
+                                        <li>✔ Habit Tracking</li>
+                                        <li>✖ AI Coaching</li>
+                                        <li>✖ Live Workshops</li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer">
+                                    <button class="btn btn-warning w-100" onclick="subscribe('premium')">Choose Plan</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Pro Plan -->
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100 border-warning">
+                                <div class="card-header bg-warning text-dark">
+                                    <h5>Pro Gardener</h5>
+                                    <h3>$9.99<span class="fs-6">/month</span></h3>
+                                    <p class="text-muted">or $99.99/year</p>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-unstyled">
+                                        <li>✔ Everything in Premium</li>
+                                        <li>✔ AI Growth Coach</li>
+                                        <li>✔ Live Expert Workshops</li>
+                                        <li>✔ Team Gardens</li>
+                                        <li>✔ Priority Support</li>
+                                        <li>✔ Early Access</li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer">
+                                    <button class="btn btn-warning w-100" onclick="subscribe('pro')">Choose Plan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-3">
+                        <button class="btn btn-link" onclick="showLifetimeOffer()">Or get Lifetime Access for $199 (One-time)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lifetime Offer Modal -->
+    <div class="modal fade" id="lifetimeModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title">Lifetime Access</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <h3>🌻 Unlimited Growth Forever 🌻</h3>
+                    <p class="lead">One-time payment of $199</p>
+                    <ul class="list-unstyled text-start">
+                        <li>✔ All current and future Premium features</li>
+                        <li>✔ Exclusive NFT Garden Badges</li>
+                        <li>✔ VIP Content Access</li>
+                        <li>✔ No recurring payments</li>
+                    </ul>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-warning btn-lg" onclick="subscribe('lifetime')">Get Lifetime Access</button>
+                        <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Maybe Later</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Subscription logic
+        function showLifetimeOffer() {
+            const subscriptionModal = bootstrap.Modal.getInstance(document.getElementById('subscriptionModal'));
+            subscriptionModal.hide();
+            
+            const lifetimeModal = new bootstrap.Modal(document.getElementById('lifetimeModal'));
+            lifetimeModal.show();
+        }
+        
+        function subscribe(plan) {
+            // In a real app, this would connect to your payment processor
+            console.log(`Subscribing to ${plan} plan`);
+            
+            // Show success message
+            alert(`Thank you for choosing ${plan} plan! Your garden will now flourish.`);
+            
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById(plan === 'lifetime' ? 'lifetimeModal' : 'subscriptionModal'));
+            modal.hide();
+            
+            // Update UI to premium
+            if (plan === 'lifetime') {
+                document.querySelector('.navbar-brand').innerHTML = '🌻 MindGarden VIP';
+            } else {
+                document.querySelector('.navbar-brand').innerHTML = '🌸 MindGarden Pro';
+            }
+            
+            // Remove free badge and show premium features
+            document.querySelector('.badge.bg-secondary').remove();
+            document.querySelectorAll('.locked-feature').forEach(el => {
+                el.classList.remove('locked-feature');
+                el.style.filter = 'none';
+                el.querySelector('img').style.filter = 'none';
+            });
+            
+            // Enable premium buttons
+            document.querySelectorAll('button[disabled]').forEach(btn => {
+                btn.disabled = false;
+                btn.classList.remove('btn-outline-secondary');
+                btn.classList.add('btn-outline-success');
+            });
+        }
+        
+        // Initialize tooltips
+        document.addEventListener('DOMContentLoaded', function() {
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+            
+            // Upgrade button event
+            document.getElementById('upgradeBtn').addEventListener('click', function() {
+                const modal = new bootstrap.Modal(document.getElementById('subscriptionModal'));
+                modal.show();
+            });
+        });
+    </script>
 </body>
 </html>
