@@ -1,0 +1,15 @@
+# Stripe Configuration
+STRIPE_SECRET_KEY=sk_test_your_stripe_key
+STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret
+PREMIUM_MONTHLY_PRICE=price_monthly_premium
+PREMIUM_YEARLY_PRICE=price_yearly_premium
+PRO_MONTHLY_PRICE=price_monthly_pro
+PRO_YEARLY_PRICE=price_yearly_pro
+LIFETIME_PRICE=price_lifetime
+
+# Database
+MONGODB_URI=mongodb://localhost:27017/mindgarden
+
+# Application
+PORT=3000
+FRONTEND_URL=http://localhost:8080
